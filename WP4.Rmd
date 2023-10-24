@@ -1,0 +1,298 @@
+---
+title: "WP4"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+date: "2022-11-18"
+---
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggalt)
+library(ggrepel)
+```
+
+```{r, echo=FALSE}
+dino <- read.csv("/Users/zoeschopick/Dinosaurs.csv")
+```
+
+
+```{r, echo=FALSE}
+options(scipen = 9999)
+
+dinomass <- dino %>%
+  filter(Clade != "Dinosauromorpha") %>%
+  filter(!is.na(Mass)) %>%
+  filter(!is.na(max_ma))
+```
+
+```{r, echo=FALSE}
+therodino <- dinomass %>% filter(Clade=="Theropoda")
+
+
+```
+
+```{r, echo=FALSE}
+therodino5 <- therodino %>% 
+  mutate(max_ma=round(max_ma, digits = -1)) %>%
+  group_by(max_ma) %>%
+  summarize(Mass = round(median(Mass, na.rm = TRUE), digits = 2))
+
+```
+
+
+```{r, echo=FALSE}
+ggplot(data = therodino5, aes(x = max_ma, y = Mass)) + geom_line(color = "darkgreen") +geom_point(color = "darkgreen") + xlab("Millions of Years Ago") + scale_x_continuous(breaks = c(70, 90, 110, 130, 150, 170, 190, 210, 230)) + ylab("Median Body Mass") + ggtitle("Theropoda Dinosaur Body Mass Over Time") + theme_minimal()+ theme(plot.title = element_text(hjust = 0.5, size=15), axis.title = element_text(size = 12))  + geom_label_repel(aes(label = Mass), size=2.5, segment.size = 0.2, min.segment.length = 0, color = "blue") 
+```
+
+The graph shows median body weights of the Theropoda dinosaur over time. The data was cleaned before import to only include clade, mass, and maximum millions of years ago. The years were rounded to the nearest 10 creating 18 categories. Years 180 and 220 had no data in them so they were excluded. 
+
+\newpage
+```{r, echo=FALSE}
+therodino6 <- therodino %>% 
+  mutate(max_ma=round(max_ma, digits = -1)) %>%
+  group_by(max_ma)
+
+
+```
+```{r, echo=FALSE}
+thero70 <- therodino6 %>% filter(max_ma==70)
+thero80 <- therodino6 %>% filter(max_ma==80)
+thero90 <- therodino6 %>% filter(max_ma==90)
+thero100 <- therodino6 %>% filter(max_ma==100)
+thero110 <- therodino6 %>% filter(max_ma==110)
+thero120 <- therodino6 %>% filter(max_ma==120)
+thero130 <- therodino6 %>% filter(max_ma==130)
+thero140 <- therodino6 %>% filter(max_ma==140)
+thero150 <- therodino6 %>% filter(max_ma==150)
+thero160 <- therodino6 %>% filter(max_ma==160)
+thero170 <- therodino6 %>% filter(max_ma==170)
+thero180 <- therodino6 %>% filter(max_ma==180)
+thero190 <- therodino6 %>% filter(max_ma==190)
+thero200 <- therodino6 %>% filter(max_ma==200)
+thero210 <- therodino6 %>% filter(max_ma==210)
+thero220 <- therodino6 %>% filter(max_ma==220)
+thero230 <- therodino6 %>% filter(max_ma==230)
+thero240 <- therodino6 %>% filter(max_ma==240)
+
+```
+
+```{r, echo=FALSE}
+x1 <- round(quantile(thero70$Mass, probs = 0.25), digits = 2)
+x2 <- round(quantile(thero80$Mass, probs = 0.25), digits = 2)
+x3 <- round(quantile(thero90$Mass, probs = 0.25), digits = 2)
+x4 <- round(quantile(thero100$Mass, probs = 0.25), digits = 2)
+x5 <- round(quantile(thero110$Mass, probs = 0.25), digits = 2)
+x6 <- round(quantile(thero120$Mass, probs = 0.25), digits = 2)
+x7 <- round(quantile(thero130$Mass, probs = 0.25), digits = 2)
+x8 <- round(quantile(thero140$Mass, probs = 0.25), digits = 2)
+x9 <- round(quantile(thero150$Mass, probs = 0.25), digits = 2)
+x10 <- round(quantile(thero160$Mass, probs = 0.25), digits = 2)
+x11 <- round(quantile(thero170$Mass, probs = 0.25), digits = 2)
+x12 <- round(quantile(thero180$Mass, probs = 0.25), digits = 2)
+x13 <- round(quantile(thero190$Mass, probs = 0.25), digits = 2)
+x14 <- round(quantile(thero200$Mass, probs = 0.25), digits = 2)
+x15 <- round(quantile(thero210$Mass, probs = 0.25), digits = 2)
+x16 <- round(quantile(thero220$Mass, probs = 0.25), digits = 2)
+x17 <- round(quantile(thero230$Mass, probs = 0.25), digits = 2)
+x18 <- round(quantile(thero240$Mass, probs = 0.25), digits = 2)
+
+y1 <- round(quantile(thero70$Mass, probs = 0.75), digits = 2)
+y2 <- round(quantile(thero80$Mass, probs = 0.75), digits = 2)
+y3 <- round(quantile(thero90$Mass, probs = 0.75), digits = 2)
+y4 <- round(quantile(thero100$Mass, probs = 0.75), digits = 2)
+y5 <- round(quantile(thero110$Mass, probs = 0.75), digits = 2)
+y6 <- round(quantile(thero120$Mass, probs = 0.75), digits = 2)
+y7 <- round(quantile(thero130$Mass, probs = 0.75), digits = 2)
+y8 <- round(quantile(thero140$Mass, probs = 0.75), digits = 2)
+y9 <- round(quantile(thero150$Mass, probs = 0.75), digits = 2)
+y10 <- round(quantile(thero160$Mass, probs = 0.75), digits = 2)
+y11 <- round(quantile(thero170$Mass, probs = 0.75), digits = 2)
+y12 <- round(quantile(thero180$Mass, probs = 0.75), digits = 2)
+y13 <- round(quantile(thero190$Mass, probs = 0.75), digits = 2)
+y14 <- round(quantile(thero200$Mass, probs = 0.75), digits = 2)
+y15 <- round(quantile(thero210$Mass, probs = 0.75), digits = 2)
+y16 <- round(quantile(thero220$Mass, probs = 0.75), digits = 2)
+y17 <- round(quantile(thero230$Mass, probs = 0.75), digits = 2)
+y18 <- round(quantile(thero240$Mass, probs = 0.75), digits = 2)
+```
+
+```{r, echo=FALSE}
+year <- c("70", "80", "90", "100", "110", "120", "130", "140", "150", "160", "170", "180", "190", "200", "210", "220", "230", "240")
+Q1 <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18)
+Q2 <- c(y1, y2, y3, y4, y5, y6, y7, y8, y9,  y10, y11, y12, y13, y14, y15, y16, y17, y18)
+
+
+newdataframe <- data.frame(year, Q1, Q2)
+
+
+newdataframe <- na.omit(newdataframe)
+
+```
+
+```{r, echo=FALSE}
+ggplot() + geom_dumbbell(data = newdataframe, 
+                         aes(y = year,
+                             x = Q1, 
+                             xend = Q2), size_x = 2, size_xend = 2, colour_xend = "#5b8124", colour_x ="#bad744"
+                         ) + xlab("Body Mass") + ylab("Millions of Years Ago") + theme_minimal() + ggtitle("First and Third Quartiles of Theropoda Body Mass Over Time") + theme(plot.title = element_text(hjust = 0.5, size=15), axis.title = element_text(size = 12)) + scale_y_discrete(limits=c("70", "80", "90", "100", "110", "120", "130", "140", "150", "160", "170", "190", "200", "210", "230", "240"))
+
+```
+
+The graph above shows the first and third quartiles of Theropoda body mass (and their ranges) over time. The first quartiles are depicted in light green and the third quartiles are depicted in dark green. The data was cleaned before import to only include clade, mass, and maximum millions of years ago. The years were rounded to the nearest 10 creating 18 categories. Years 180 and 220 had no data in them so they were excluded. 
+
+\newpage
+
+```{r, eval=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggalt)
+library(ggrepel)
+```
+
+```{r, eval=FALSE}
+dino <- read.csv("/Users/zoeschopick/Dinosaurs.csv")
+```
+
+
+```{r, eval=FALSE}
+options(scipen = 9999)
+
+dinomass <- dino %>%
+  filter(Clade != "Dinosauromorpha") %>%
+  filter(!is.na(Mass)) %>%
+  filter(!is.na(max_ma))
+```
+Data filtered to only include Theropoda 
+```{r, eval=FALSE}
+therodino <- dinomass %>% filter(Clade=="Theropoda")
+
+```
+Finding the median and rounding each year to the nearest 10
+```{r, eval=FALSE}
+therodino5 <- therodino %>% 
+  mutate(max_ma=round(max_ma, digits = -1)) %>%
+  group_by(max_ma) %>%
+  summarize(Mass = round(median(Mass, na.rm = TRUE), digits = 2))
+
+```
+Creating the central tendency plot
+```{r, eval=FALSE}
+ggplot(data = therodino5, aes(x = max_ma, y = Mass)) + geom_line(color = "darkgreen")
++geom_point(color = "darkgreen") + xlab("Millions of Years Ago") + 
+  scale_x_continuous(breaks = c(70, 90, 110, 130, 150, 170, 190, 210, 230)) + 
+  ylab("Median Body Mass") + ggtitle("Theropoda Dinosaur Body Mass Over Time") + 
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5, size=15), 
+                         axis.title = element_text(size = 12))
++ geom_label_repel(aes(label = Mass), size=2.5, segment.size = 0.2, 
+                   min.segment.length = 0, color = "blue") 
+```
+Finding the first and third quartiles for each year group and creating a data frame out of the new values. 
+```{r, eval=FALSE}
+therodino6 <- therodino %>% 
+  mutate(max_ma=round(max_ma, digits = -1)) %>%
+  group_by(max_ma)
+
+
+```
+```{r, eval=FALSE}
+thero70 <- therodino6 %>% filter(max_ma==70)
+thero80 <- therodino6 %>% filter(max_ma==80)
+thero90 <- therodino6 %>% filter(max_ma==90)
+thero100 <- therodino6 %>% filter(max_ma==100)
+thero110 <- therodino6 %>% filter(max_ma==110)
+thero120 <- therodino6 %>% filter(max_ma==120)
+thero130 <- therodino6 %>% filter(max_ma==130)
+thero140 <- therodino6 %>% filter(max_ma==140)
+thero150 <- therodino6 %>% filter(max_ma==150)
+thero160 <- therodino6 %>% filter(max_ma==160)
+thero170 <- therodino6 %>% filter(max_ma==170)
+thero180 <- therodino6 %>% filter(max_ma==180)
+thero190 <- therodino6 %>% filter(max_ma==190)
+thero200 <- therodino6 %>% filter(max_ma==200)
+thero210 <- therodino6 %>% filter(max_ma==210)
+thero220 <- therodino6 %>% filter(max_ma==220)
+thero230 <- therodino6 %>% filter(max_ma==230)
+thero240 <- therodino6 %>% filter(max_ma==240)
+
+```
+
+```{r, eval=FALSE}
+x1 <- round(quantile(thero70$Mass, probs = 0.25), digits = 2)
+x2 <- round(quantile(thero80$Mass, probs = 0.25), digits = 2)
+x3 <- round(quantile(thero90$Mass, probs = 0.25), digits = 2)
+x4 <- round(quantile(thero100$Mass, probs = 0.25), digits = 2)
+x5 <- round(quantile(thero110$Mass, probs = 0.25), digits = 2)
+x6 <- round(quantile(thero120$Mass, probs = 0.25), digits = 2)
+x7 <- round(quantile(thero130$Mass, probs = 0.25), digits = 2)
+x8 <- round(quantile(thero140$Mass, probs = 0.25), digits = 2)
+x9 <- round(quantile(thero150$Mass, probs = 0.25), digits = 2)
+x10 <- round(quantile(thero160$Mass, probs = 0.25), digits = 2)
+x11 <- round(quantile(thero170$Mass, probs = 0.25), digits = 2)
+x12 <- round(quantile(thero180$Mass, probs = 0.25), digits = 2)
+x13 <- round(quantile(thero190$Mass, probs = 0.25), digits = 2)
+x14 <- round(quantile(thero200$Mass, probs = 0.25), digits = 2)
+x15 <- round(quantile(thero210$Mass, probs = 0.25), digits = 2)
+x16 <- round(quantile(thero220$Mass, probs = 0.25), digits = 2)
+x17 <- round(quantile(thero230$Mass, probs = 0.25), digits = 2)
+x18 <- round(quantile(thero240$Mass, probs = 0.25), digits = 2)
+
+y1 <- round(quantile(thero70$Mass, probs = 0.75), digits = 2)
+y2 <- round(quantile(thero80$Mass, probs = 0.75), digits = 2)
+y3 <- round(quantile(thero90$Mass, probs = 0.75), digits = 2)
+y4 <- round(quantile(thero100$Mass, probs = 0.75), digits = 2)
+y5 <- round(quantile(thero110$Mass, probs = 0.75), digits = 2)
+y6 <- round(quantile(thero120$Mass, probs = 0.75), digits = 2)
+y7 <- round(quantile(thero130$Mass, probs = 0.75), digits = 2)
+y8 <- round(quantile(thero140$Mass, probs = 0.75), digits = 2)
+y9 <- round(quantile(thero150$Mass, probs = 0.75), digits = 2)
+y10 <- round(quantile(thero160$Mass, probs = 0.75), digits = 2)
+y11 <- round(quantile(thero170$Mass, probs = 0.75), digits = 2)
+y12 <- round(quantile(thero180$Mass, probs = 0.75), digits = 2)
+y13 <- round(quantile(thero190$Mass, probs = 0.75), digits = 2)
+y14 <- round(quantile(thero200$Mass, probs = 0.75), digits = 2)
+y15 <- round(quantile(thero210$Mass, probs = 0.75), digits = 2)
+y16 <- round(quantile(thero220$Mass, probs = 0.75), digits = 2)
+y17 <- round(quantile(thero230$Mass, probs = 0.75), digits = 2)
+y18 <- round(quantile(thero240$Mass, probs = 0.75), digits = 2)
+```
+
+```{r, eval=FALSE}
+year <- c("70", "80", "90", "100", "110", "120", "130", "140", 
+          "150", "160", "170", "180", "190", "200", "210", "220", "230", "240")
+Q1 <- c(x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, 
+        x12, x13, x14, x15, x16, x17, x18)
+Q2 <- c(y1, y2, y3, y4, y5, y6, y7, y8, y9,  y10, y11, 
+        y12, y13, y14, y15, y16, y17, y18)
+
+
+newdataframe <- data.frame(year, Q1, Q2)
+
+
+newdataframe <- na.omit(newdataframe)
+
+```
+Creating the variation plot
+```{r, eval=FALSE}
+ggplot() + geom_dumbbell(data = newdataframe, 
+                         aes(y = year,
+                             x = Q1, 
+                             xend = Q2), size_x = 2, size_xend = 2, 
+                         colour_xend = "#5b8124", colour_x ="#bad744"
+                         ) + xlab("Body Mass") + ylab("Millions of Years Ago") + 
+  theme_minimal() + ggtitle("First and Third Quartiles of Theropoda Body Mass Over Time") 
++ theme(plot.title = element_text(hjust = 0.5, size=15), 
+        axis.title = element_text(size = 12)) + 
+  scale_y_discrete(limits=c("70", "80", "90", "100", "110", 
+                            "120", "130", "140", "150", "160", "170", 
+                            "190", "200", "210", "230", "240"))
+
+```
+
